@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayBooker - Complete Project Documentation with Code Flow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #fff;
+        }
+
+        @media print {
+            body {
+                padding: 15px;
+                font-size: 11px;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            pre {
+                font-size: 9px !important;
+                padding: 10px !important;
+            }
+            h1 { font-size: 24px !important; }
+            h2 { font-size: 18px !important; }
+            h3 { font-size: 14px !important; }
+        }
+
+        h1 {
+            color: #2563eb;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #1e40af;
+            font-size: 1.5rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 4px solid #2563eb;
+            padding-left: 15px;
+            background: #f0f9ff;
+            padding: 10px 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        h3 {
+            color: #3730a3;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            color: #4f46e5;
+            font-size: 1rem;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            color: #e11d48;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.8em;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        pre .comment { color: #6b7280; }
+        pre .keyword { color: #f472b6; }
+        pre .string { color: #a5f3fc; }
+        pre .function { color: #fbbf24; }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            color: white;
+            border-radius: 16px;
+        }
+
+        .header h1 {
+            color: white;
+            border: none;
+        }
+
+        .header .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .header .version {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .toc {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .toc ol {
+            columns: 2;
+            margin-left: 20px;
+        }
+
+        .toc a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .file-header {
+            background: linear-gradient(90deg, #1e40af 0%, #3730a3 100%);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px 8px 0 0;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+
+        .file-header + pre {
+            margin-top: 0;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .flow-diagram {
+            background: #f0f9ff;
+            border: 2px solid #2563eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Consolas', monospace;
+            text-align: center;
+        }
+
+        .flow-box {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            margin: 5px;
+        }
+
+        .flow-arrow {
+            color: #2563eb;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            border-left: 4px solid #2563eb;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin: 2px;
+            font-size: 0.85rem;
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, #2563eb, #7c3aed, #2563eb);
+            margin: 30px 0;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>StayBooker</h1>
+        <p class="subtitle">Complete Project Documentation with Code Flow</p>
+        <span class="version">Version 1.0.0 | React 19 + Vite 7</span>
+    </div>
+
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ol>
+            <li><a href="#overview">Project Overview</a></li>
+            <li><a href="#architecture">Architecture & Flow</a></li>
+            <li><a href="#entry">Entry Points</a></li>
+            <li><a href="#context">State Management</a></li>
+            <li><a href="#data">Data Layer</a></li>
+            <li><a href="#pages">Page Components</a></li>
+            <li><a href="#components">UI Components</a></li>
+            <li><a href="#flow">Complete User Flow</a></li>
+        </ol>
+    </div>
+
+    <!-- SECTION 1: Overview -->
+    <h2 id="overview">1. Project Overview</h2>
+
+    <p><strong>StayBooker</strong> is a modern accommodation booking portal built with React 19. It provides a complete user experience for browsing, searching, filtering, and booking vacation rentals.</p>
+
+    <h3>Technology Stack</h3>
+    <div style="margin: 15px 0;">
+        <span class="tech-badge">React 19.2.0</span>
+        <span class="tech-badge">React Router DOM 7.10.1</span>
+        <span class="tech-badge">Vite 7.2.4</span>
+        <span class="tech-badge">Lucide React Icons</span>
+        <span class="tech-badge">CSS3 + BEM</span>
+        <span class="tech-badge">Context API</span>
+        <span class="tech-badge">LocalStorage</span>
+    </div>
+
+    <h3>Key Features</h3>
+    <ul>
+        <li>Property listings with search and advanced filtering</li>
+        <li>Detailed property pages with image galleries</li>
+        <li>Multi-step booking flow with form validation</li>
+        <li>Booking management (view, cancel)</li>
+        <li>Wishlist functionality with persistence</li>
+        <li>Fully responsive design</li>
+    </ul>
+
+    <div class="section-divider"></div>
+
+    <!-- SECTION 2: Architecture -->
+    <h2 id="architecture">2. Architecture & Application Flow</h2>
+
+    <h3>Project Structure</h3>
+    <pre>
+booking-portal-ui/
+├── public/
+│   └── favicon.svg              # App favicon
+├── src/
+│   ├── components/              # Reusable UI components
+│   │   ├── Header.jsx           # Navigation header
+│   │   ├── SearchBar.jsx        # Search form
+│   │   ├── Filters.jsx          # Filter sidebar
+│   │   ├── StayList.jsx         # Property grid
+│   │   ├── StayCard.jsx         # Property card
+│   │   ├── BookingCard.jsx      # Booking widget
+│   │   ├── ImageGallery.jsx     # Image modal
+│   │   └── MapSection.jsx       # Location map
+│   ├── context/
+│   │   └── BookingContext.jsx   # Global state management
+│   ├── data/
+│   │   └── stays.js             # Mock property data
+│   ├── pages/
+│   │   ├── Home.jsx             # Main listing page
+│   │   ├── StayDetails.jsx      # Property details
+│   │   ├── Booking.jsx          # Booking form
+│   │   ├── MyBookings.jsx       # Booking history
+│   │   └── Wishlist.jsx         # Saved properties
+│   ├── App.jsx                  # Root component
+│   ├── main.jsx                 # Entry point
+│   └── index.css                # Global styles
+├── index.html                   # HTML template
+├── package.json                 # Dependencies
+└── vite.config.js              # Build config
+    </pre>
+
+    <h3>Application Flow Diagram</h3>
+    <div class="flow-diagram">
+        <div class="flow-box">main.jsx</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">App.jsx</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">BookingProvider</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">Router</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">Pages</div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 3: Entry Points -->
+    <h2 id="entry">3. Entry Points</h2>
+
+    <h3>3.1 main.jsx - Application Entry</h3>
+    <p>The application bootstraps from <code>main.jsx</code>, which creates the React root and renders the App component within StrictMode.</p>
+
+    <div class="file-header">src/main.jsx</div>
+    <pre>
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;,
+)
+    </pre>
+
+    <div class="info-box">
+        <strong>Flow:</strong> HTML loads → main.jsx executes → React root created → App component mounted → Application renders
+    </div>
+
+    <h3>3.2 App.jsx - Root Component & Routing</h3>
+    <p>The App component sets up the global state provider and defines all application routes.</p>
+
+    <div class="file-header">src/App.jsx</div>
+    <pre>
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BookingProvider } from './context/BookingContext';
+import Header from './components/Header';
+import Home from './pages/Home';
+import StayDetails from './pages/StayDetails';
+import Wishlist from './pages/Wishlist';
+import Booking from './pages/Booking';
+import MyBookings from './pages/MyBookings';
+import './App.css';
+
+function App() {
+  return (
+    &lt;BookingProvider&gt;
+      &lt;Router&gt;
+        &lt;div className="app"&gt;
+          &lt;Header /&gt;
+          &lt;main className="main-content"&gt;
+            &lt;Routes&gt;
+              &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+              &lt;Route path="/stay/:id" element={&lt;StayDetails /&gt;} /&gt;
+              &lt;Route path="/wishlist" element={&lt;Wishlist /&gt;} /&gt;
+              &lt;Route path="/booking" element={&lt;Booking /&gt;} /&gt;
+              &lt;Route path="/my-bookings" element={&lt;MyBookings /&gt;} /&gt;
+            &lt;/Routes&gt;
+          &lt;/main&gt;
+        &lt;/div&gt;
+      &lt;/Router&gt;
+    &lt;/BookingProvider&gt;
+  );
+}
+
+export default App;
+    </pre>
+
+    <h3>Route Configuration</h3>
+    <table>
+        <tr>
+            <th>Route</th>
+            <th>Component</th>
+            <th>Purpose</th>
+        </tr>
+        <tr>
+            <td><code>/</code></td>
+            <td>Home</td>
+            <td>Main listing page with search and filters</td>
+        </tr>
+        <tr>
+            <td><code>/stay/:id</code></td>
+            <td>StayDetails</td>
+            <td>Property details with booking widget</td>
+        </tr>
+        <tr>
+            <td><code>/wishlist</code></td>
+            <td>Wishlist</td>
+            <td>Saved/favorite properties</td>
+        </tr>
+        <tr>
+            <td><code>/booking</code></td>
+            <td>Booking</td>
+            <td>Multi-step booking form</td>
+        </tr>
+        <tr>
+            <td><code>/my-bookings</code></td>
+            <td>MyBookings</td>
+            <td>View and manage bookings</td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 4: State Management -->
+    <h2 id="context">4. State Management - BookingContext</h2>
+
+    <p>The application uses React Context API for global state management. The <code>BookingContext</code> provides centralized state for wishlist, search, filters, and booking data.</p>
+
+    <h3>Context Architecture</h3>
+    <div class="flow-diagram">
+        <div class="flow-box">BookingProvider</div>
+        <span class="flow-arrow">wraps</span>
+        <div class="flow-box">App</div>
+        <br><br>
+        <div class="flow-box">useBooking()</div>
+        <span class="flow-arrow">accesses</span>
+        <div class="flow-box">State & Actions</div>
+    </div>
+
+    <div class="file-header">src/context/BookingContext.jsx</div>
+    <pre>
+import { createContext, useContext, useState, useEffect } from 'react';
+
+const BookingContext = createContext();
+
+// Custom hook for accessing context
+export const useBooking = () => {
+  const context = useContext(BookingContext);
+  if (!context) {
+    throw new Error('useBooking must be used within a BookingProvider');
+  }
+  return context;
+};
+
+export const BookingProvider = ({ children }) => {
+  // WISHLIST STATE - Persisted to localStorage
+  const [wishlist, setWishlist] = useState(() => {
+    const saved = localStorage.getItem('wishlist');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // BOOKING HISTORY - Persisted to localStorage
+  const [bookingHistory, setBookingHistory] = useState(() => {
+    const saved = localStorage.getItem('bookingHistory');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // SEARCH & FILTER STATE
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState({
+    priceRange: [0, 600],
+    rating: 0,
+    location: 'All Locations',
+    propertyType: 'All Types',
+    guests: 1
+  });
+
+  // CURRENT BOOKING SESSION
+  const [bookingData, setBookingData] = useState({
+    stay: null,
+    checkIn: null,
+    checkOut: null,
+    guests: 1,
+    totalPrice: 0
+  });
+
+  // Persist wishlist to localStorage
+  useEffect(() => {
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  }, [wishlist]);
+
+  // Persist booking history to localStorage
+  useEffect(() => {
+    localStorage.setItem('bookingHistory', JSON.stringify(bookingHistory));
+  }, [bookingHistory]);
+
+  // WISHLIST ACTIONS
+  const addToWishlist = (stayId) => {
+    setWishlist(prev => {
+      if (prev.includes(stayId)) {
+        return prev.filter(id => id !== stayId); // Remove if exists
+      }
+      return [...prev, stayId]; // Add if doesn't exist
+    });
+  };
+
+  const isInWishlist = (stayId) => wishlist.includes(stayId);
+
+  // FILTER ACTIONS
+  const updateFilters = (newFilters) => {
+    setFilters(prev => ({ ...prev, ...newFilters }));
+  };
+
+  const resetFilters = () => {
+    setFilters({
+      priceRange: [0, 600],
+      rating: 0,
+      location: 'All Locations',
+      propertyType: 'All Types',
+      guests: 1
+    });
+  };
+
+  // BOOKING ACTIONS
+  const startBooking = (stay, checkIn, checkOut, guests) => {
+    const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+    const totalPrice = stay.price * nights;
+    setBookingData({
+      stay,
+      checkIn,
+      checkOut,
+      guests,
+      totalPrice,
+      nights
+    });
+  };
+
+  const clearBooking = () => {
+    setBookingData({
+      stay: null,
+      checkIn: null,
+      checkOut: null,
+      guests: 1,
+      totalPrice: 0
+    });
+  };
+
+  const confirmBooking = (guestInfo) => {
+    const confirmationNumber = 'BK' + Date.now().toString().slice(-8);
+    const serviceFee = Math.round(bookingData.totalPrice * 0.12);
+
+    const newBooking = {
+      id: confirmationNumber,
+      stay: bookingData.stay,
+      checkIn: bookingData.checkIn,
+      checkOut: bookingData.checkOut,
+      guests: bookingData.guests,
+      nights: bookingData.nights,
+      subtotal: bookingData.totalPrice,
+      serviceFee,
+      totalPaid: bookingData.totalPrice + serviceFee,
+      guestInfo,
+      bookedAt: new Date().toISOString(),
+      status: 'confirmed'
+    };
+
+    setBookingHistory(prev => [newBooking, ...prev]);
+    return confirmationNumber;
+  };
+
+  const cancelBooking = (bookingId) => {
+    setBookingHistory(prev =>
+      prev.map(booking =>
+        booking.id === bookingId
+          ? { ...booking, status: 'cancelled' }
+          : booking
+      )
+    );
+  };
+
+  // BOOKING QUERIES
+  const getUpcomingBookings = () => {
+    const now = new Date();
+    return bookingHistory.filter(booking =>
+      booking.status === 'confirmed' && new Date(booking.checkIn) > now
+    );
+  };
+
+  const getPastBookings = () => {
+    const now = new Date();
+    return bookingHistory.filter(booking =>
+      new Date(booking.checkOut) < now || booking.status === 'cancelled'
+    );
+  };
+
+  // PROVIDE CONTEXT VALUE
+  return (
+    &lt;BookingContext.Provider
+      value={{
+        wishlist,
+        addToWishlist,
+        isInWishlist,
+        searchQuery,
+        setSearchQuery,
+        filters,
+        updateFilters,
+        resetFilters,
+        bookingData,
+        startBooking,
+        clearBooking,
+        confirmBooking,
+        cancelBooking,
+        bookingHistory,
+        getUpcomingBookings,
+        getPastBookings
+      }}
+    &gt;
+      {children}
+    &lt;/BookingContext.Provider&gt;
+  );
+};
+    </pre>
+
+    <h3>State Flow Summary</h3>
+    <table>
+        <tr>
+            <th>State</th>
+            <th>Type</th>
+            <th>Persisted</th>
+            <th>Usage</th>
+        </tr>
+        <tr>
+            <td>wishlist</td>
+            <td>Array of IDs</td>
+            <td>Yes (localStorage)</td>
+            <td>Save favorite properties</td>
+        </tr>
+        <tr>
+            <td>bookingHistory</td>
+            <td>Array of Objects</td>
+            <td>Yes (localStorage)</td>
+            <td>Confirmed bookings</td>
+        </tr>
+        <tr>
+            <td>searchQuery</td>
+            <td>String</td>
+            <td>No</td>
+            <td>Search text</td>
+        </tr>
+        <tr>
+            <td>filters</td>
+            <td>Object</td>
+            <td>No</td>
+            <td>Filter criteria</td>
+        </tr>
+        <tr>
+            <td>bookingData</td>
+            <td>Object</td>
+            <td>No</td>
+            <td>Current booking session</td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 5: Data Layer -->
+    <h2 id="data">5. Data Layer - stays.js</h2>
+
+    <p>The application uses mock data stored in <code>stays.js</code>. This file exports an array of stay objects and filter options.</p>
+
+    <div class="file-header">src/data/stays.js (Structure)</div>
+    <pre>
+// Array of 12 accommodation listings
+export const stays = [
+  {
+    id: 1,
+    title: "Luxury Ocean View Villa",
+    location: "Malibu, California",
+    price: 450,                          // Price per night
+    rating: 4.9,                         // Average rating
+    reviews: 128,                        // Number of reviews
+    type: "Villa",                       // Property type
+    amenities: ["Pool", "WiFi", "Kitchen", "Beach Access", "Parking"],
+    bedrooms: 4,
+    bathrooms: 3,
+    guests: 8,                           // Max guests
+    description: "Full property description...",
+    images: [                            // Array of image URLs
+      "https://images.unsplash.com/...",
+      "https://images.unsplash.com/...",
+    ],
+    host: {
+      name: "Sarah Mitchell",
+      image: "https://images.unsplash.com/...",
+      superhost: true,
+      responseRate: 98,
+      responseTime: "within an hour"
+    },
+    coordinates: { lat: 34.0259, lng: -118.7798 }
+  },
+  // ... 11 more properties
+];
+
+// Filter options
+export const locations = [
+  "All Locations",
+  "California",
+  "New York",
+  "Colorado",
+  "Florida",
+  "Massachusetts",
+  "Arizona",
+  "Washington",
+  "Oregon",
+  "Illinois",
+  "Hawaii"
+];
+
+export const propertyTypes = [
+  "All Types",
+  "Villa",
+  "Apartment",
+  "Cabin",
+  "Bungalow",
+  "Cottage",
+  "Studio",
+  "Estate",
+  "Treehouse",
+  "Penthouse"
+];
+    </pre>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 6: Pages -->
+    <h2 id="pages">6. Page Components</h2>
+
+    <h3>6.1 Home.jsx - Main Listing Page</h3>
+    <p>The home page composes SearchBar, Filters, and StayList components to create the main browsing experience.</p>
+
+    <div class="file-header">src/pages/Home.jsx</div>
+    <pre>
+import SearchBar from '../components/SearchBar';
+import Filters from '../components/Filters';
+import StayList from '../components/StayList';
+import './Home.css';
+
+const Home = () => {
+  return (
+    &lt;div className="home"&gt;
+      &lt;SearchBar /&gt;
+      &lt;div className="home-content"&gt;
+        &lt;Filters /&gt;
+        &lt;StayList /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default Home;
+    </pre>
+
+    <h3>6.2 StayDetails.jsx - Property Details</h3>
+    <p>Displays comprehensive property information including images, amenities, host info, map, and booking widget.</p>
+
+    <div class="file-header">src/pages/StayDetails.jsx (Key Parts)</div>
+    <pre>
+import { useParams, Link } from 'react-router-dom';
+import { stays } from '../data/stays';
+import { useBooking } from '../context/BookingContext';
+import ImageGallery from '../components/ImageGallery';
+import BookingCard from '../components/BookingCard';
+import MapSection from '../components/MapSection';
+
+// Amenity icon mapping
+const amenityIcons = {
+  WiFi: Wifi,
+  Parking: Car,
+  'Air Conditioning': Snowflake,
+  Pool: Waves,
+  // ... more mappings
+};
+
+const StayDetails = () => {
+  const { id } = useParams();                    // Get ID from URL
+  const { addToWishlist, isInWishlist } = useBooking();
+
+  const stay = stays.find((s) => s.id === parseInt(id));
+
+  if (!stay) {
+    return (
+      &lt;div className="stay-not-found"&gt;
+        &lt;h2&gt;Stay not found&lt;/h2&gt;
+        &lt;Link to="/"&gt;Go back home&lt;/Link&gt;
+      &lt;/div&gt;
+    );
+  }
+
+  const inWishlist = isInWishlist(stay.id);
+
+  return (
+    &lt;div className="stay-details"&gt;
+      {/* Header with back link and actions */}
+      &lt;div className="details-header"&gt;
+        &lt;Link to="/" className="back-link"&gt;Back to listings&lt;/Link&gt;
+        &lt;button onClick={() => addToWishlist(stay.id)}&gt;
+          {inWishlist ? 'Saved' : 'Save'}
+        &lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;h1&gt;{stay.title}&lt;/h1&gt;
+
+      {/* Meta info: rating, location, superhost */}
+      &lt;div className="stay-meta"&gt;
+        &lt;span&gt;{stay.rating} ({stay.reviews} reviews)&lt;/span&gt;
+        {stay.host.superhost && &lt;span&gt;Superhost&lt;/span&gt;}
+        &lt;span&gt;{stay.location}&lt;/span&gt;
+      &lt;/div&gt;
+
+      {/* Image gallery component */}
+      &lt;ImageGallery images={stay.images} title={stay.title} /&gt;
+
+      &lt;div className="details-content"&gt;
+        &lt;div className="details-main"&gt;
+          {/* Host section */}
+          {/* Highlights section */}
+          {/* Description section */}
+          {/* Amenities grid */}
+          &lt;MapSection location={stay.location} coordinates={stay.coordinates} /&gt;
+          {/* Reviews section */}
+        &lt;/div&gt;
+
+        {/* Sidebar with booking card */}
+        &lt;div className="details-sidebar"&gt;
+          &lt;BookingCard stay={stay} /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+    </pre>
+
+    <div class="page-break"></div>
+
+    <h3>6.3 Booking.jsx - Multi-Step Booking Form</h3>
+    <p>A 3-step booking process: Guest Details → Payment → Review & Confirm.</p>
+
+    <div class="file-header">src/pages/Booking.jsx (Key Parts)</div>
+    <pre>
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useBooking } from '../context/BookingContext';
+
+const Booking = () => {
+  const navigate = useNavigate();
+  const { bookingData, clearBooking, confirmBooking } = useBooking();
+
+  // Form state
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    cardNumber: '',
+    cardName: '',
+    expiryDate: '',
+    cvv: '',
+    specialRequests: '',
+    arrivalTime: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookingComplete, setBookingComplete] = useState(false);
+  const [confirmationNumber, setConfirmationNumber] = useState('');
+
+  const { stay, checkIn, checkOut, guests, totalPrice, nights } = bookingData;
+
+  // Redirect if no booking data
+  if (!stay) {
+    return (
+      &lt;div className="no-booking"&gt;
+        &lt;h2&gt;No booking in progress&lt;/h2&gt;
+        &lt;Link to="/"&gt;Browse stays&lt;/Link&gt;
+      &lt;/div&gt;
+    );
+  }
+
+  // Input handling with formatting
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    // Format card number: 1234 5678 9012 3456
+    if (name === 'cardNumber') {
+      const cleaned = value.replace(/\D/g, '');
+      const formatted = cleaned.replace(/(\d{4})/g, '$1 ').trim();
+      setFormData(prev => ({ ...prev, [name]: formatted.slice(0, 19) }));
+    }
+    // Format expiry: MM/YY
+    else if (name === 'expiryDate') {
+      const cleaned = value.replace(/\D/g, '');
+      if (cleaned.length >= 2) {
+        setFormData(prev => ({
+          ...prev,
+          [name]: cleaned.slice(0, 2) + '/' + cleaned.slice(2, 4)
+        }));
+      } else {
+        setFormData(prev => ({ ...prev, [name]: cleaned }));
+      }
+    }
+    // Format phone: (555) 000-0000
+    else if (name === 'phone') {
+      const cleaned = value.replace(/\D/g, '');
+      let formatted = cleaned;
+      if (cleaned.length > 6) {
+        formatted = `(${cleaned.slice(0,3)}) ${cleaned.slice(3,6)}-${cleaned.slice(6,10)}`;
+      } else if (cleaned.length > 3) {
+        formatted = `(${cleaned.slice(0,3)}) ${cleaned.slice(3)}`;
+      } else if (cleaned.length > 0) {
+        formatted = `(${cleaned}`;
+      }
+      setFormData(prev => ({ ...prev, [name]: formatted }));
+    }
+    else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  // Step 1 validation
+  const validateStep1 = () => {
+    const newErrors = {};
+    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
+    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else if (formData.phone.replace(/\D/g, '').length < 10) {
+      newErrors.phone = 'Please enter a valid phone number';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Step 2 validation
+  const validateStep2 = () => {
+    const newErrors = {};
+    const cardNum = formData.cardNumber.replace(/\s/g, '');
+    if (!cardNum) newErrors.cardNumber = 'Card number is required';
+    else if (cardNum.length < 16) newErrors.cardNumber = 'Enter valid 16-digit card';
+    if (!formData.cardName.trim()) newErrors.cardName = 'Cardholder name required';
+    if (!formData.expiryDate) newErrors.expiryDate = 'Expiry date required';
+    if (!formData.cvv || formData.cvv.length < 3) newErrors.cvv = 'CVV required';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Navigation
+  const handleNextStep = () => {
+    if (currentStep === 1 && !validateStep1()) return;
+    if (currentStep === 2 && !validateStep2()) return;
+    setCurrentStep(prev => prev + 1);
+  };
+
+  // Submit booking
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 2500));
+
+    const confNum = confirmBooking({
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone
+    });
+
+    setConfirmationNumber(confNum);
+    setIsSubmitting(false);
+    setBookingComplete(true);
+  };
+
+  // Price calculation
+  const serviceFee = Math.round(stay.price * nights * 0.12);
+  const cleaningFee = 45;
+  const finalTotal = totalPrice + serviceFee + cleaningFee;
+
+  // Render form steps or success screen...
+};
+    </pre>
+
+    <div class="page-break"></div>
+
+    <h3>6.4 MyBookings.jsx - Booking Management</h3>
+    <p>Displays upcoming and past bookings with cancellation functionality.</p>
+
+    <div class="file-header">src/pages/MyBookings.jsx (Key Parts)</div>
+    <pre>
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useBooking } from '../context/BookingContext';
+
+const MyBookings = () => {
+  const { bookingHistory, cancelBooking } = useBooking();
+  const [activeTab, setActiveTab] = useState('upcoming');
+  const [cancellingId, setCancellingId] = useState(null);
+
+  const now = new Date();
+
+  // Filter bookings by status
+  const upcomingBookings = bookingHistory.filter(booking =>
+    booking.status === 'confirmed' && new Date(booking.checkIn) > now
+  );
+
+  const pastBookings = bookingHistory.filter(booking =>
+    new Date(booking.checkOut) < now || booking.status === 'cancelled'
+  );
+
+  // Handle cancellation with loading state
+  const handleCancelBooking = async (bookingId) => {
+    setCancellingId(bookingId);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    cancelBooking(bookingId);
+    setCancellingId(null);
+  };
+
+  // Get status badge component
+  const getStatusBadge = (booking) => {
+    const checkIn = new Date(booking.checkIn);
+    const checkOut = new Date(booking.checkOut);
+
+    if (booking.status === 'cancelled') {
+      return &lt;span className="status-badge cancelled"&gt;Cancelled&lt;/span&gt;;
+    }
+    if (checkOut < now) {
+      return &lt;span className="status-badge completed"&gt;Completed&lt;/span&gt;;
+    }
+    if (checkIn <= now && checkOut >= now) {
+      return &lt;span className="status-badge active"&gt;Active&lt;/span&gt;;
+    }
+    return &lt;span className="status-badge upcoming"&gt;Upcoming&lt;/span&gt;;
+  };
+
+  // Calculate days until check-in
+  const getDaysUntilCheckIn = (checkIn) => {
+    const days = Math.ceil((new Date(checkIn) - now) / (1000 * 60 * 60 * 24));
+    if (days === 0) return 'Today';
+    if (days === 1) return 'Tomorrow';
+    return `In ${days} days`;
+  };
+
+  const bookings = activeTab === 'upcoming' ? upcomingBookings : pastBookings;
+
+  return (
+    &lt;div className="my-bookings-page"&gt;
+      {/* Tab navigation */}
+      &lt;div className="bookings-tabs"&gt;
+        &lt;button
+          className={activeTab === 'upcoming' ? 'active' : ''}
+          onClick={() => setActiveTab('upcoming')}
+        &gt;
+          Upcoming ({upcomingBookings.length})
+        &lt;/button&gt;
+        &lt;button
+          className={activeTab === 'past' ? 'active' : ''}
+          onClick={() => setActiveTab('past')}
+        &gt;
+          Past ({pastBookings.length})
+        &lt;/button&gt;
+      &lt;/div&gt;
+
+      {/* Booking list */}
+      {bookings.map(booking => (
+        &lt;div key={booking.id} className="booking-item"&gt;
+          &lt;img src={booking.stay.images[0]} alt={booking.stay.title} /&gt;
+          &lt;h3&gt;{booking.stay.title}&lt;/h3&gt;
+          {getStatusBadge(booking)}
+          &lt;span&gt;{getDaysUntilCheckIn(booking.checkIn)}&lt;/span&gt;
+          {activeTab === 'upcoming' && booking.status === 'confirmed' && (
+            &lt;button onClick={() => handleCancelBooking(booking.id)}&gt;
+              Cancel
+            &lt;/button&gt;
+          )}
+        &lt;/div&gt;
+      ))}
+
+      {/* Summary stats */}
+      &lt;div className="bookings-summary"&gt;
+        &lt;span&gt;Total: {bookingHistory.length}&lt;/span&gt;
+        &lt;span&gt;Upcoming: {upcomingBookings.length}&lt;/span&gt;
+        &lt;span&gt;Total Spent: ${bookingHistory.reduce(
+          (sum, b) => sum + (b.status !== 'cancelled' ? b.totalPaid : 0), 0
+        )}&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+    </pre>
+
+    <h3>6.5 Wishlist.jsx - Saved Properties</h3>
+    <p>Displays all properties saved to the user's wishlist.</p>
+
+    <div class="file-header">src/pages/Wishlist.jsx</div>
+    <pre>
+import { Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useBooking } from '../context/BookingContext';
+import { stays } from '../data/stays';
+import StayCard from '../components/StayCard';
+import './Wishlist.css';
+
+const Wishlist = () => {
+  const { wishlist } = useBooking();
+
+  // Filter stays that are in wishlist
+  const wishlistStays = stays.filter((stay) => wishlist.includes(stay.id));
+
+  return (
+    &lt;div className="wishlist-page"&gt;
+      &lt;div className="wishlist-header"&gt;
+        &lt;h1&gt;
+          &lt;Heart fill="#ef4444" /&gt;
+          Your Wishlist
+        &lt;/h1&gt;
+        &lt;p&gt;{wishlistStays.length} saved stays&lt;/p&gt;
+      &lt;/div&gt;
+
+      {wishlistStays.length > 0 ? (
+        &lt;div className="wishlist-grid"&gt;
+          {wishlistStays.map((stay) => (
+            &lt;StayCard key={stay.id} stay={stay} /&gt;
+          ))}
+        &lt;/div&gt;
+      ) : (
+        &lt;div className="wishlist-empty"&gt;
+          &lt;Heart size={64} /&gt;
+          &lt;h2&gt;Your wishlist is empty&lt;/h2&gt;
+          &lt;p&gt;Start saving favorites by clicking the heart icon&lt;/p&gt;
+          &lt;Link to="/"&gt;Browse stays&lt;/Link&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+};
+
+export default Wishlist;
+    </pre>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 7: Components -->
+    <h2 id="components">7. UI Components</h2>
+
+    <h3>7.1 Header.jsx - Navigation</h3>
+    <div class="file-header">src/components/Header.jsx</div>
+    <pre>
+import { Link, useLocation } from 'react-router-dom';
+import { Home, Heart, Menu, X, User, CalendarDays } from 'lucide-react';
+import { useState } from 'react';
+import { useBooking } from '../context/BookingContext';
+
+const Header = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { wishlist, bookingHistory } = useBooking();
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
+
+  // Count upcoming bookings for badge
+  const upcomingCount = bookingHistory.filter(b =>
+    b.status === 'confirmed' && new Date(b.checkIn) > new Date()
+  ).length;
+
+  return (
+    &lt;header className="header"&gt;
+      &lt;Link to="/" className="logo"&gt;
+        &lt;Home /&gt;
+        &lt;span&gt;StayBooker&lt;/span&gt;
+      &lt;/Link&gt;
+
+      &lt;nav className={mobileMenuOpen ? 'nav-open' : ''}&gt;
+        &lt;Link to="/" className={isActive('/') ? 'active' : ''}&gt;
+          Explore
+        &lt;/Link&gt;
+        &lt;Link to="/my-bookings"&gt;
+          My Bookings
+          {upcomingCount > 0 && &lt;span className="badge"&gt;{upcomingCount}&lt;/span&gt;}
+        &lt;/Link&gt;
+        &lt;Link to="/wishlist"&gt;
+          Wishlist
+          {wishlist.length > 0 && &lt;span className="badge"&gt;{wishlist.length}&lt;/span&gt;}
+        &lt;/Link&gt;
+        &lt;button className="profile-btn"&gt;&lt;User /&gt;&lt;/button&gt;
+      &lt;/nav&gt;
+
+      &lt;button className="mobile-menu-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}&gt;
+        {mobileMenuOpen ? &lt;X /&gt; : &lt;Menu /&gt;}
+      &lt;/button&gt;
+    &lt;/header&gt;
+  );
+};
+    </pre>
+
+    <h3>7.2 SearchBar.jsx - Search Form</h3>
+    <div class="file-header">src/components/SearchBar.jsx</div>
+    <pre>
+import { Search, MapPin, Calendar, Users } from 'lucide-react';
+import { useState } from 'react';
+import { useBooking } from '../context/BookingContext';
+
+const SearchBar = () => {
+  const { searchQuery, setSearchQuery, filters, updateFilters } = useBooking();
+  const [checkIn, setCheckIn] = useState('');
+  const [checkOut, setCheckOut] = useState('');
+
+  return (
+    &lt;div className="search-section"&gt;
+      &lt;h1&gt;Find your perfect stay&lt;/h1&gt;
+
+      &lt;form className="search-bar"&gt;
+        {/* Location search */}
+        &lt;div className="search-field"&gt;
+          &lt;MapPin /&gt;
+          &lt;input
+            type="text"
+            placeholder="Where are you going?"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          /&gt;
+        &lt;/div&gt;
+
+        {/* Date inputs */}
+        &lt;div className="search-field"&gt;
+          &lt;Calendar /&gt;
+          &lt;input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} /&gt;
+        &lt;/div&gt;
+        &lt;div className="search-field"&gt;
+          &lt;Calendar /&gt;
+          &lt;input type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} /&gt;
+        &lt;/div&gt;
+
+        {/* Guest selector */}
+        &lt;div className="search-field"&gt;
+          &lt;Users /&gt;
+          &lt;select
+            value={filters.guests}
+            onChange={(e) => updateFilters({ guests: parseInt(e.target.value) })}
+          &gt;
+            {[1,2,3,4,5,6,7,8,9,10].map(num => (
+              &lt;option key={num} value={num}&gt;{num} Guest{num > 1 ? 's' : ''}&lt;/option&gt;
+            ))}
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;button type="submit"&gt;&lt;Search /&gt; Search&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  );
+};
+    </pre>
+
+    <h3>7.3 StayList.jsx - Filtered Property Grid</h3>
+    <div class="file-header">src/components/StayList.jsx</div>
+    <pre>
+import { useMemo } from 'react';
+import { useBooking } from '../context/BookingContext';
+import { stays } from '../data/stays';
+import StayCard from './StayCard';
+
+const StayList = () => {
+  const { searchQuery, filters } = useBooking();
+
+  // Memoized filtering for performance
+  const filteredStays = useMemo(() => {
+    return stays.filter((stay) => {
+      // Search query filter (title, location, type)
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        const matchesSearch =
+          stay.title.toLowerCase().includes(query) ||
+          stay.location.toLowerCase().includes(query) ||
+          stay.type.toLowerCase().includes(query);
+        if (!matchesSearch) return false;
+      }
+
+      // Location filter
+      if (filters.location !== 'All Locations') {
+        if (!stay.location.includes(filters.location)) return false;
+      }
+
+      // Property type filter
+      if (filters.propertyType !== 'All Types') {
+        if (stay.type !== filters.propertyType) return false;
+      }
+
+      // Price range filter
+      if (stay.price < filters.priceRange[0] || stay.price > filters.priceRange[1]) {
+        return false;
+      }
+
+      // Rating filter
+      if (stay.rating < filters.rating) return false;
+
+      // Guest capacity filter
+      if (stay.guests < filters.guests) return false;
+
+      return true;
+    });
+  }, [searchQuery, filters]);
+
+  return (
+    &lt;div className="stay-list-container"&gt;
+      &lt;h2&gt;{filteredStays.length} stays found&lt;/h2&gt;
+
+      {filteredStays.length > 0 ? (
+        &lt;div className="stay-grid"&gt;
+          {filteredStays.map((stay) => (
+            &lt;StayCard key={stay.id} stay={stay} /&gt;
+          ))}
+        &lt;/div&gt;
+      ) : (
+        &lt;div className="no-results"&gt;
+          &lt;h3&gt;No stays found&lt;/h3&gt;
+          &lt;p&gt;Try adjusting your filters&lt;/p&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+};
+    </pre>
+
+    <div class="page-break"></div>
+
+    <h3>7.4 StayCard.jsx - Property Card</h3>
+    <div class="file-header">src/components/StayCard.jsx</div>
+    <pre>
+import { Heart, Star, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useBooking } from '../context/BookingContext';
+
+const StayCard = ({ stay }) => {
+  const { addToWishlist, isInWishlist } = useBooking();
+  const inWishlist = isInWishlist(stay.id);
+
+  const handleWishlistClick = (e) => {
+    e.preventDefault();           // Prevent Link navigation
+    e.stopPropagation();          // Stop event bubbling
+    addToWishlist(stay.id);
+  };
+
+  return (
+    &lt;Link to={`/stay/${stay.id}`} className="stay-card"&gt;
+      &lt;div className="stay-card-image"&gt;
+        &lt;img src={stay.images[0]} alt={stay.title} /&gt;
+        &lt;button
+          className={`wishlist-btn ${inWishlist ? 'active' : ''}`}
+          onClick={handleWishlistClick}
+        &gt;
+          &lt;Heart fill={inWishlist ? '#ef4444' : 'none'} /&gt;
+        &lt;/button&gt;
+        &lt;span className="stay-type-badge"&gt;{stay.type}&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;div className="stay-card-content"&gt;
+        &lt;h3&gt;{stay.title}&lt;/h3&gt;
+        &lt;div className="stay-rating"&gt;
+          &lt;Star fill="#fbbf24" /&gt;
+          &lt;span&gt;{stay.rating} ({stay.reviews})&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div className="stay-location"&gt;
+          &lt;MapPin /&gt; {stay.location}
+        &lt;/div&gt;
+        &lt;div className="stay-details"&gt;
+          {stay.bedrooms} beds &middot; {stay.bathrooms} baths &middot; {stay.guests} guests
+        &lt;/div&gt;
+        &lt;div className="stay-footer"&gt;
+          &lt;span className="price"&gt;${stay.price}&lt;/span&gt;
+          &lt;span&gt;/ night&lt;/span&gt;
+          {stay.host.superhost && &lt;span className="superhost"&gt;Superhost&lt;/span&gt;}
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/Link&gt;
+  );
+};
+    </pre>
+
+    <h3>7.5 BookingCard.jsx - Booking Widget</h3>
+    <div class="file-header">src/components/BookingCard.jsx</div>
+    <pre>
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Calendar, Users, Star } from 'lucide-react';
+import { useBooking } from '../context/BookingContext';
+
+const BookingCard = ({ stay }) => {
+  const navigate = useNavigate();
+  const { startBooking } = useBooking();
+  const [checkIn, setCheckIn] = useState('');
+  const [checkOut, setCheckOut] = useState('');
+  const [guests, setGuests] = useState(1);
+  const [error, setError] = useState('');
+
+  // Calculate nights and pricing
+  const calculateNights = () => {
+    if (!checkIn || !checkOut) return 0;
+    const diff = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000*60*60*24));
+    return diff > 0 ? diff : 0;
+  };
+
+  const nights = calculateNights();
+  const subtotal = stay.price * nights;
+  const serviceFee = Math.round(subtotal * 0.12);
+  const total = subtotal + serviceFee;
+
+  const handleReserve = () => {
+    if (!checkIn) { setError('Select check-in date'); return; }
+    if (!checkOut) { setError('Select check-out date'); return; }
+    if (nights === 0) { setError('Check-out must be after check-in'); return; }
+
+    // Start booking and navigate
+    startBooking(stay, new Date(checkIn), new Date(checkOut), guests);
+    navigate('/booking');
+  };
+
+  return (
+    &lt;div className="booking-card"&gt;
+      &lt;div className="booking-header"&gt;
+        &lt;span&gt;${stay.price} / night&lt;/span&gt;
+        &lt;span&gt;{stay.rating} ({stay.reviews} reviews)&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;div className="date-inputs"&gt;
+        &lt;div&gt;
+          &lt;label&gt;CHECK-IN&lt;/label&gt;
+          &lt;input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} /&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;label&gt;CHECK-OUT&lt;/label&gt;
+          &lt;input type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div className="guests-field"&gt;
+        &lt;label&gt;GUESTS&lt;/label&gt;
+        &lt;select value={guests} onChange={(e) => setGuests(Number(e.target.value))}&gt;
+          {Array.from({length: stay.guests}, (_, i) => i + 1).map(num => (
+            &lt;option key={num} value={num}&gt;{num} guest{num > 1 ? 's' : ''}&lt;/option&gt;
+          ))}
+        &lt;/select&gt;
+      &lt;/div&gt;
+
+      {error && &lt;div className="error"&gt;{error}&lt;/div&gt;}
+
+      &lt;button onClick={handleReserve}&gt;Reserve&lt;/button&gt;
+      &lt;p&gt;You won't be charged yet&lt;/p&gt;
+
+      {nights > 0 && (
+        &lt;div className="price-breakdown"&gt;
+          &lt;div&gt;${stay.price} x {nights} nights = ${subtotal}&lt;/div&gt;
+          &lt;div&gt;Service fee = ${serviceFee}&lt;/div&gt;
+          &lt;div&gt;&lt;strong&gt;Total = ${total}&lt;/strong&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+};
+    </pre>
+
+    <div class="page-break"></div>
+
+    <h3>7.6 Filters.jsx - Filter Sidebar</h3>
+    <div class="file-header">src/components/Filters.jsx</div>
+    <pre>
+import { SlidersHorizontal, Star, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useBooking } from '../context/BookingContext';
+import { locations, propertyTypes } from '../data/stays';
+
+const Filters = () => {
+  const { filters, updateFilters, resetFilters } = useBooking();
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+
+  // Check if any filters are active
+  const hasActiveFilters =
+    filters.priceRange[0] > 0 ||
+    filters.priceRange[1] < 600 ||
+    filters.rating > 0 ||
+    filters.location !== 'All Locations' ||
+    filters.propertyType !== 'All Types';
+
+  // Lock body scroll when mobile filters open
+  useEffect(() => {
+    document.body.style.overflow = showMobileFilters ? 'hidden' : 'auto';
+    return () => { document.body.style.overflow = 'auto'; };
+  }, [showMobileFilters]);
+
+  const filterContent = (
+    &lt;&gt;
+      {/* Location dropdown */}
+      &lt;div className="filter-group"&gt;
+        &lt;label&gt;Location&lt;/label&gt;
+        &lt;select value={filters.location} onChange={(e) => updateFilters({location: e.target.value})}&gt;
+          {locations.map(loc => &lt;option key={loc} value={loc}&gt;{loc}&lt;/option&gt;)}
+        &lt;/select&gt;
+      &lt;/div&gt;
+
+      {/* Property type dropdown */}
+      &lt;div className="filter-group"&gt;
+        &lt;label&gt;Property Type&lt;/label&gt;
+        &lt;select value={filters.propertyType} onChange={(e) => updateFilters({propertyType: e.target.value})}&gt;
+          {propertyTypes.map(type => &lt;option key={type} value={type}&gt;{type}&lt;/option&gt;)}
+        &lt;/select&gt;
+      &lt;/div&gt;
+
+      {/* Price range sliders */}
+      &lt;div className="filter-group"&gt;
+        &lt;label&gt;Price: ${filters.priceRange[0]} - ${filters.priceRange[1]}&lt;/label&gt;
+        &lt;input type="range" min="0" max="600" step="25"
+          value={filters.priceRange[0]}
+          onChange={(e) => updateFilters({priceRange: [parseInt(e.target.value), filters.priceRange[1]]})}
+        /&gt;
+        &lt;input type="range" min="0" max="600" step="25"
+          value={filters.priceRange[1]}
+          onChange={(e) => updateFilters({priceRange: [filters.priceRange[0], parseInt(e.target.value)]})}
+        /&gt;
+      &lt;/div&gt;
+
+      {/* Rating buttons */}
+      &lt;div className="filter-group"&gt;
+        &lt;label&gt;Minimum Rating&lt;/label&gt;
+        &lt;div className="rating-buttons"&gt;
+          {[0, 3, 3.5, 4, 4.5].map(rating => (
+            &lt;button key={rating} className={filters.rating === rating ? 'active' : ''}
+              onClick={() => updateFilters({rating})}&gt;
+              {rating === 0 ? 'Any' : `${rating}+`}
+            &lt;/button&gt;
+          ))}
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      {hasActiveFilters && (
+        &lt;button onClick={resetFilters}&gt;Clear all filters&lt;/button&gt;
+      )}
+    &lt;/&gt;
+  );
+
+  return (
+    &lt;&gt;
+      {/* Mobile toggle button */}
+      &lt;button className="mobile-filter-toggle" onClick={() => setShowMobileFilters(true)}&gt;
+        &lt;SlidersHorizontal /&gt; Filters
+      &lt;/button&gt;
+
+      {/* Desktop sidebar */}
+      &lt;aside className="filters-sidebar"&gt;
+        &lt;h3&gt;Filters&lt;/h3&gt;
+        {filterContent}
+      &lt;/aside&gt;
+
+      {/* Mobile overlay */}
+      {showMobileFilters && (
+        &lt;div className="mobile-filters-overlay"&gt;
+          &lt;div className="mobile-filters-panel"&gt;
+            &lt;button onClick={() => setShowMobileFilters(false)}&gt;&lt;X /&gt;&lt;/button&gt;
+            {filterContent}
+            &lt;button onClick={() => setShowMobileFilters(false)}&gt;Show Results&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/&gt;
+  );
+};
+    </pre>
+
+    <h3>7.7 ImageGallery.jsx - Modal Gallery</h3>
+    <div class="file-header">src/components/ImageGallery.jsx</div>
+    <pre>
+import { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight, X, Grid3X3 } from 'lucide-react';
+
+const ImageGallery = ({ images, title }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const modalRef = useRef(null);
+
+  const openModal = (index) => {
+    setCurrentIndex(index);
+    setShowModal(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  const nextImage = () => setCurrentIndex((prev) => (prev + 1) % images.length);
+  const prevImage = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!showModal) return;
+      switch (e.key) {
+        case 'Escape': closeModal(); break;
+        case 'ArrowRight': nextImage(); break;
+        case 'ArrowLeft': prevImage(); break;
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [showModal]);
+
+  return (
+    &lt;&gt;
+      {/* Grid preview */}
+      &lt;div className="gallery-grid"&gt;
+        &lt;button className="gallery-main" onClick={() => openModal(0)}&gt;
+          &lt;img src={images[0]} alt={title} /&gt;
+        &lt;/button&gt;
+        &lt;div className="gallery-side"&gt;
+          {images.slice(1, 5).map((img, index) => (
+            &lt;button key={index} onClick={() => openModal(index + 1)}&gt;
+              &lt;img src={img} alt={`${title} - ${index + 2}`} /&gt;
+            &lt;/button&gt;
+          ))}
+        &lt;/div&gt;
+        &lt;button onClick={() => openModal(0)}&gt;Show all photos&lt;/button&gt;
+      &lt;/div&gt;
+
+      {/* Fullscreen modal */}
+      {showModal && (
+        &lt;div className="gallery-modal" onClick={closeModal}&gt;
+          &lt;button className="modal-close" onClick={closeModal}&gt;&lt;X /&gt;&lt;/button&gt;
+          &lt;div className="modal-content" onClick={(e) => e.stopPropagation()}&gt;
+            &lt;button onClick={prevImage}&gt;&lt;ChevronLeft /&gt;&lt;/button&gt;
+            &lt;img src={images[currentIndex]} alt={title} /&gt;
+            &lt;span&gt;{currentIndex + 1} / {images.length}&lt;/span&gt;
+            &lt;button onClick={nextImage}&gt;&lt;ChevronRight /&gt;&lt;/button&gt;
+          &lt;/div&gt;
+          {/* Thumbnails */}
+          &lt;div className="modal-thumbnails"&gt;
+            {images.map((img, index) => (
+              &lt;button key={index} className={index === currentIndex ? 'active' : ''}
+                onClick={(e) => { e.stopPropagation(); setCurrentIndex(index); }}&gt;
+                &lt;img src={img} alt={`Thumbnail ${index + 1}`} /&gt;
+              &lt;/button&gt;
+            ))}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/&gt;
+  );
+};
+    </pre>
+
+    <h3>7.8 MapSection.jsx - Location Map</h3>
+    <div class="file-header">src/components/MapSection.jsx</div>
+    <pre>
+import { MapPin, ZoomIn, ZoomOut, Navigation } from 'lucide-react';
+import { useState } from 'react';
+
+const MapSection = ({ location, coordinates }) => {
+  const [zoom, setZoom] = useState(1);
+
+  const handleZoomIn = () => setZoom(prev => Math.min(prev + 0.2, 2));
+  const handleZoomOut = () => setZoom(prev => Math.max(prev - 0.2, 0.6));
+
+  return (
+    &lt;div className="map-section"&gt;
+      &lt;h3&gt;&lt;MapPin /&gt; Where you'll be&lt;/h3&gt;
+      &lt;p&gt;{location}&lt;/p&gt;
+
+      &lt;div className="map-container"&gt;
+        {/* Mock map with zoom transform */}
+        &lt;div className="map-mock" style={{ transform: `scale(${zoom})` }}&gt;
+          &lt;div className="map-marker"&gt;
+            &lt;MapPin fill="#2563eb" /&gt;
+          &lt;/div&gt;
+          {/* Mock roads and areas */}
+          &lt;div className="map-roads"&gt;...&lt;/div&gt;
+          &lt;div className="map-labels"&gt;...&lt;/div&gt;
+        &lt;/div&gt;
+
+        {/* Zoom controls */}
+        &lt;div className="map-controls"&gt;
+          &lt;button onClick={handleZoomIn}&gt;&lt;ZoomIn /&gt;&lt;/button&gt;
+          &lt;button onClick={handleZoomOut}&gt;&lt;ZoomOut /&gt;&lt;/button&gt;
+          &lt;button&gt;&lt;Navigation /&gt;&lt;/button&gt;
+        &lt;/div&gt;
+
+        {/* Coordinates display */}
+        &lt;div className="map-coordinates"&gt;
+          {coordinates.lat.toFixed(4)}&deg;N, {Math.abs(coordinates.lng).toFixed(4)}&deg;W
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;p&gt;Exact location provided after booking.&lt;/p&gt;
+    &lt;/div&gt;
+  );
+};
+    </pre>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 8: Complete User Flow -->
+    <h2 id="flow">8. Complete User Flow</h2>
+
+    <h3>8.1 Browsing Flow</h3>
+    <div class="flow-diagram" style="text-align: left; padding: 20px;">
+        <strong>User lands on Home Page:</strong><br><br>
+        1. <code>Home.jsx</code> renders SearchBar, Filters, StayList<br>
+        2. <code>StayList.jsx</code> reads <code>stays</code> data and <code>filters</code> from context<br>
+        3. <code>useMemo</code> filters stays based on search query and filter criteria<br>
+        4. Filtered stays rendered as <code>StayCard</code> components<br>
+        5. User types in SearchBar → <code>setSearchQuery()</code> → StayList re-filters<br>
+        6. User adjusts Filters → <code>updateFilters()</code> → StayList re-filters
+    </div>
+
+    <h3>8.2 Booking Flow</h3>
+    <div class="flow-diagram" style="text-align: left; padding: 20px;">
+        <strong>Complete booking journey:</strong><br><br>
+        1. User clicks StayCard → navigates to <code>/stay/:id</code><br>
+        2. <code>StayDetails.jsx</code> finds stay by ID from <code>stays</code> array<br>
+        3. User selects dates and guests in <code>BookingCard</code><br>
+        4. Click "Reserve" → <code>startBooking()</code> stores booking data in context<br>
+        5. Navigate to <code>/booking</code><br>
+        6. <code>Booking.jsx</code> reads <code>bookingData</code> from context<br>
+        7. Step 1: User enters guest details → validates → next step<br>
+        8. Step 2: User enters payment info → validates → next step<br>
+        9. Step 3: User reviews and confirms<br>
+        10. Submit → <code>confirmBooking()</code> creates booking record<br>
+        11. Booking added to <code>bookingHistory</code> and saved to localStorage<br>
+        12. Confirmation screen shown with booking number
+    </div>
+
+    <h3>8.3 Wishlist Flow</h3>
+    <div class="flow-diagram" style="text-align: left; padding: 20px;">
+        <strong>Save and view favorites:</strong><br><br>
+        1. User clicks heart icon on <code>StayCard</code><br>
+        2. <code>handleWishlistClick()</code> prevents navigation and calls <code>addToWishlist(stayId)</code><br>
+        3. Context toggles stay ID in <code>wishlist</code> array<br>
+        4. <code>useEffect</code> persists wishlist to localStorage<br>
+        5. Header badge updates to show wishlist count<br>
+        6. User navigates to <code>/wishlist</code><br>
+        7. <code>Wishlist.jsx</code> filters <code>stays</code> by IDs in <code>wishlist</code> array<br>
+        8. Matching stays rendered as StayCard components
+    </div>
+
+    <h3>8.4 Booking Management Flow</h3>
+    <div class="flow-diagram" style="text-align: left; padding: 20px;">
+        <strong>View and cancel bookings:</strong><br><br>
+        1. User navigates to <code>/my-bookings</code><br>
+        2. <code>MyBookings.jsx</code> reads <code>bookingHistory</code> from context<br>
+        3. Bookings filtered into upcoming vs past based on dates and status<br>
+        4. Tab selection shows appropriate booking list<br>
+        5. User clicks "Cancel" on upcoming booking<br>
+        6. <code>handleCancelBooking()</code> shows loading state<br>
+        7. Calls <code>cancelBooking(bookingId)</code> in context<br>
+        8. Context updates booking status to 'cancelled'<br>
+        9. localStorage updated via useEffect<br>
+        10. UI reflects cancelled status
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h3>Price Calculation Formula</h3>
+    <div class="info-box">
+        <strong>Booking Total Calculation:</strong><br><br>
+        <code>subtotal = price_per_night × number_of_nights</code><br>
+        <code>service_fee = subtotal × 0.12 (12%)</code><br>
+        <code>cleaning_fee = $45 (fixed)</code><br>
+        <code>total = subtotal + service_fee + cleaning_fee</code>
+    </div>
+
+    <h3>Data Persistence</h3>
+    <div class="warning-box">
+        <strong>LocalStorage Keys:</strong><br><br>
+        <code>wishlist</code> - Array of stay IDs (e.g., [1, 5, 8])<br>
+        <code>bookingHistory</code> - Array of booking objects with full details<br><br>
+        Data persists across browser sessions and page refreshes.
+    </div>
+
+    <div class="footer">
+        <p><strong>StayBooker</strong> - Complete Project Documentation</p>
+        <p>Version 1.0.0 | React 19 + Vite 7 + React Router 7</p>
+        <p>Repository: <a href="https://github.com/Vikas85109/booking-portal-ui">github.com/Vikas85109/booking-portal-ui</a></p>
+        <p style="margin-top: 15px;">Documentation generated on December 2024</p>
+        <p style="margin-top: 10px; font-style: italic;">To save as PDF: Open in browser → File → Print → Save as PDF</p>
+    </div>
+</body>
+</html>

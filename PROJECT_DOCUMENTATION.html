@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayBooker - Project Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #fff;
+        }
+
+        @media print {
+            body {
+                padding: 20px;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+
+        h1 {
+            color: #2563eb;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #1e40af;
+            font-size: 1.5rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 4px solid #2563eb;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #3730a3;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            color: #e11d48;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header .subtitle {
+            color: #64748b;
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        .header .version {
+            background: #2563eb;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .feature-card h4 {
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 5px 12px;
+            border-radius: 15px;
+            margin: 3px;
+            font-size: 0.85rem;
+        }
+
+        .architecture-box {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .toc {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .toc ol {
+            margin-left: 20px;
+        }
+
+        .toc a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .highlight-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            border-left: 4px solid #2563eb;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>StayBooker</h1>
+        <p class="subtitle">Accommodation Booking Portal - Project Documentation</p>
+        <span class="version">Version 1.0.0</span>
+    </div>
+
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ol>
+            <li><a href="#overview">Project Overview</a></li>
+            <li><a href="#tech-stack">Technology Stack</a></li>
+            <li><a href="#features">Features & Functionality</a></li>
+            <li><a href="#architecture">Architecture & Structure</a></li>
+            <li><a href="#components">Component Documentation</a></li>
+            <li><a href="#state-management">State Management</a></li>
+            <li><a href="#routing">Routing Configuration</a></li>
+            <li><a href="#data-model">Data Model</a></li>
+            <li><a href="#styling">Styling Architecture</a></li>
+            <li><a href="#installation">Installation & Setup</a></li>
+            <li><a href="#scripts">Available Scripts</a></li>
+            <li><a href="#deployment">Deployment Guide</a></li>
+        </ol>
+    </div>
+
+    <h2 id="overview">1. Project Overview</h2>
+    <p>
+        <strong>StayBooker</strong> is a modern, fully-responsive accommodation booking portal built with React.
+        It provides a seamless user experience for browsing, searching, and booking vacation rentals and stays.
+        The application features a clean, intuitive interface inspired by popular booking platforms like Airbnb.
+    </p>
+
+    <div class="info-box">
+        <strong>Key Highlights:</strong>
+        <ul>
+            <li>Single Page Application (SPA) with client-side routing</li>
+            <li>Real-time search and filtering capabilities</li>
+            <li>Complete booking flow with form validation</li>
+            <li>Persistent wishlist and booking history</li>
+            <li>Fully responsive design for all devices</li>
+        </ul>
+    </div>
+
+    <h2 id="tech-stack">2. Technology Stack</h2>
+
+    <h3>Core Technologies</h3>
+    <div style="margin: 15px 0;">
+        <span class="tech-badge">React 19.2.0</span>
+        <span class="tech-badge">React Router DOM 7.10.1</span>
+        <span class="tech-badge">Vite 7.2.4</span>
+        <span class="tech-badge">Lucide React 0.556.0</span>
+    </div>
+
+    <h3>Development Tools</h3>
+    <div style="margin: 15px 0;">
+        <span class="tech-badge">ESLint 9.39.1</span>
+        <span class="tech-badge">@vitejs/plugin-react</span>
+        <span class="tech-badge">eslint-plugin-react-hooks</span>
+        <span class="tech-badge">eslint-plugin-react-refresh</span>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Technology</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>UI Framework</td>
+                <td>React 19</td>
+                <td>Component-based user interface development</td>
+            </tr>
+            <tr>
+                <td>Routing</td>
+                <td>React Router DOM 7</td>
+                <td>Client-side navigation and routing</td>
+            </tr>
+            <tr>
+                <td>Build Tool</td>
+                <td>Vite 7</td>
+                <td>Fast development server and optimized builds</td>
+            </tr>
+            <tr>
+                <td>Icons</td>
+                <td>Lucide React</td>
+                <td>Modern SVG icon library</td>
+            </tr>
+            <tr>
+                <td>Styling</td>
+                <td>CSS3</td>
+                <td>Custom styling with BEM methodology</td>
+            </tr>
+            <tr>
+                <td>Font</td>
+                <td>Inter (Google Fonts)</td>
+                <td>Typography</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2 id="features">3. Features & Functionality</h2>
+
+    <div class="feature-card">
+        <h4>Home Page / Property Listings</h4>
+        <ul>
+            <li>Browse all available accommodation listings in a responsive grid layout</li>
+            <li>Search functionality by location, title, or property type</li>
+            <li>Advanced filtering options:
+                <ul>
+                    <li>Price range (min/max)</li>
+                    <li>Minimum rating</li>
+                    <li>Location selection</li>
+                    <li>Property type (Apartment, House, Villa, Condo, Cabin)</li>
+                    <li>Number of guests</li>
+                </ul>
+            </li>
+            <li>Stay cards displaying: images, ratings, price per night, bedrooms, bathrooms, guest capacity</li>
+        </ul>
+    </div>
+
+    <div class="feature-card">
+        <h4>Stay Details Page</h4>
+        <ul>
+            <li>Comprehensive property information with image gallery</li>
+            <li>Property specifications (bedrooms, bathrooms, maximum guests)</li>
+            <li>Host information with Superhost badge indicator</li>
+            <li>Full amenities list with icon mapping</li>
+            <li>Interactive map section with zoom controls</li>
+            <li>Review ratings breakdown by category (cleanliness, accuracy, communication, location, check-in, value)</li>
+            <li>Add to wishlist functionality</li>
+            <li>Booking widget with date selection and price calculation</li>
+        </ul>
+    </div>
+
+    <div class="feature-card">
+        <h4>Multi-Step Booking Flow</h4>
+        <ul>
+            <li><strong>Step 1 - Guest Details:</strong> Name, email, phone number, arrival time, special requests</li>
+            <li><strong>Step 2 - Payment Information:</strong> Credit card number, CVV, expiry date (with input masking)</li>
+            <li><strong>Step 3 - Review & Confirm:</strong> Booking summary, price breakdown, confirmation</li>
+            <li>Real-time form validation with error messaging</li>
+            <li>Price calculation including service fees (12%) and cleaning fee ($45)</li>
+            <li>Booking confirmation with unique booking number generation</li>
+        </ul>
+    </div>
+
+    <div class="feature-card">
+        <h4>My Bookings Management</h4>
+        <ul>
+            <li>View upcoming and past bookings with tab navigation</li>
+            <li>Booking status indicators: Upcoming, Active, Completed, Cancelled</li>
+            <li>Days until check-in countdown display</li>
+            <li>Booking cancellation with refund policy (full refund within 48 hours)</li>
+            <li>Booking statistics dashboard (total bookings, upcoming count, total spent)</li>
+        </ul>
+    </div>
+
+    <div class="feature-card">
+        <h4>Wishlist</h4>
+        <ul>
+            <li>Save favorite properties for later viewing</li>
+            <li>Persistent storage using localStorage</li>
+            <li>Quick access from header navigation with badge counter</li>
+            <li>Remove items from wishlist</li>
+        </ul>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2 id="architecture">4. Architecture & Structure</h2>
+
+    <div class="architecture-box">
+        <pre>
+booking-portal-ui/
+├── public/
+│   └── favicon.svg           # Application favicon
+│
+├── src/
+│   ├── assets/               # Static assets
+│   │
+│   ├── components/           # Reusable UI components
+│   │   ├── BookingCard/
+│   │   │   ├── BookingCard.jsx
+│   │   │   └── BookingCard.css
+│   │   ├── Filters/
+│   │   │   ├── Filters.jsx
+│   │   │   └── Filters.css
+│   │   ├── Header/
+│   │   │   ├── Header.jsx
+│   │   │   └── Header.css
+│   │   ├── ImageGallery/
+│   │   │   ├── ImageGallery.jsx
+│   │   │   └── ImageGallery.css
+│   │   ├── MapSection/
+│   │   │   ├── MapSection.jsx
+│   │   │   └── MapSection.css
+│   │   ├── SearchBar/
+│   │   │   ├── SearchBar.jsx
+│   │   │   └── SearchBar.css
+│   │   ├── StayCard/
+│   │   │   ├── StayCard.jsx
+│   │   │   └── StayCard.css
+│   │   └── StayList/
+│   │       ├── StayList.jsx
+│   │       └── StayList.css
+│   │
+│   ├── context/
+│   │   └── BookingContext.jsx  # Global state management
+│   │
+│   ├── data/
+│   │   └── stays.js            # Mock accommodation data
+│   │
+│   ├── pages/
+│   │   ├── Booking/
+│   │   │   ├── Booking.jsx
+│   │   │   └── Booking.css
+│   │   ├── Home/
+│   │   │   ├── Home.jsx
+│   │   │   └── Home.css
+│   │   ├── MyBookings/
+│   │   │   ├── MyBookings.jsx
+│   │   │   └── MyBookings.css
+│   │   ├── StayDetails/
+│   │   │   ├── StayDetails.jsx
+│   │   │   └── StayDetails.css
+│   │   └── Wishlist/
+│   │       ├── Wishlist.jsx
+│   │       └── Wishlist.css
+│   │
+│   ├── App.jsx               # Root component with routing
+│   ├── App.css               # Root styles
+│   ├── main.jsx              # Application entry point
+│   └── index.css             # Global styles
+│
+├── index.html                # HTML entry point
+├── package.json              # Dependencies and scripts
+├── vite.config.js            # Vite configuration
+├── eslint.config.js          # ESLint configuration
+└── README.md                 # Project documentation
+        </pre>
+    </div>
+
+    <h2 id="components">5. Component Documentation</h2>
+
+    <h3>Header Component</h3>
+    <p>The main navigation component that appears on all pages.</p>
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Logo</td>
+            <td>StayBooker branding with link to home</td>
+        </tr>
+        <tr>
+            <td>Navigation Links</td>
+            <td>Explore, My Bookings, Wishlist</td>
+        </tr>
+        <tr>
+            <td>Badge Counters</td>
+            <td>Shows count of upcoming bookings and wishlist items</td>
+        </tr>
+        <tr>
+            <td>Mobile Menu</td>
+            <td>Hamburger menu toggle for responsive navigation</td>
+        </tr>
+    </table>
+
+    <h3>SearchBar Component</h3>
+    <p>Search form allowing users to find properties by location, dates, and guest count.</p>
+
+    <h3>Filters Component</h3>
+    <p>Sidebar filter panel with multiple filtering options for refining search results.</p>
+
+    <h3>StayList Component</h3>
+    <p>Renders a grid of StayCard components with applied filters and search criteria.</p>
+
+    <h3>StayCard Component</h3>
+    <p>Individual property card displaying key information: image, rating, price, and specifications.</p>
+
+    <h3>BookingCard Component</h3>
+    <p>Booking widget on stay details page with date picker and price calculation.</p>
+
+    <h3>ImageGallery Component</h3>
+    <p>Modal-based image gallery with keyboard navigation support (arrow keys, escape).</p>
+
+    <h3>MapSection Component</h3>
+    <p>Interactive map visualization with zoom controls displaying property location.</p>
+
+    <div class="page-break"></div>
+
+    <h2 id="state-management">6. State Management</h2>
+
+    <p>The application uses React Context API for global state management through <code>BookingContext</code>.</p>
+
+    <h3>Context State Structure</h3>
+    <pre>
+{
+  // Wishlist Management
+  wishlist: [],                    // Array of stay IDs
+
+  // Search & Filters
+  searchQuery: '',                 // Current search term
+  filters: {
+    priceMin: '',                  // Minimum price filter
+    priceMax: '',                  // Maximum price filter
+    rating: '',                    // Minimum rating filter
+    location: '',                  // Location filter
+    propertyType: '',              // Property type filter
+    guests: ''                     // Guest count filter
+  },
+
+  // Current Booking Session
+  bookingData: {
+    stay: null,                    // Selected stay object
+    checkIn: null,                 // Check-in date
+    checkOut: null,                // Check-out date
+    guests: 1,                     // Number of guests
+    nights: 0,                     // Calculated nights
+    subtotal: 0,                   // Stay cost
+    serviceFee: 0,                 // 12% service fee
+    cleaningFee: 45,               // Fixed cleaning fee
+    total: 0                       // Total price
+  },
+
+  // Booking History
+  bookingHistory: []               // Array of confirmed bookings
+}
+    </pre>
+
+    <h3>Available Actions</h3>
+    <table>
+        <tr>
+            <th>Action</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>toggleWishlist(stayId)</code></td>
+            <td>Add or remove a stay from wishlist</td>
+        </tr>
+        <tr>
+            <td><code>setSearchQuery(query)</code></td>
+            <td>Update the search query</td>
+        </tr>
+        <tr>
+            <td><code>setFilters(filters)</code></td>
+            <td>Update filter values</td>
+        </tr>
+        <tr>
+            <td><code>setBookingData(data)</code></td>
+            <td>Set current booking session data</td>
+        </tr>
+        <tr>
+            <td><code>addBooking(booking)</code></td>
+            <td>Add confirmed booking to history</td>
+        </tr>
+        <tr>
+            <td><code>cancelBooking(bookingId)</code></td>
+            <td>Cancel an existing booking</td>
+        </tr>
+    </table>
+
+    <div class="highlight-box">
+        <strong>Persistence:</strong> Wishlist and booking history are automatically saved to localStorage and restored on page reload.
+    </div>
+
+    <h2 id="routing">7. Routing Configuration</h2>
+
+    <p>The application uses React Router DOM v7 for client-side routing.</p>
+
+    <table>
+        <tr>
+            <th>Route</th>
+            <th>Component</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>/</code></td>
+            <td>Home</td>
+            <td>Main listing page with search and filters</td>
+        </tr>
+        <tr>
+            <td><code>/stay/:id</code></td>
+            <td>StayDetails</td>
+            <td>Individual property details page</td>
+        </tr>
+        <tr>
+            <td><code>/booking</code></td>
+            <td>Booking</td>
+            <td>Multi-step booking form</td>
+        </tr>
+        <tr>
+            <td><code>/my-bookings</code></td>
+            <td>MyBookings</td>
+            <td>User's booking history and management</td>
+        </tr>
+        <tr>
+            <td><code>/wishlist</code></td>
+            <td>Wishlist</td>
+            <td>Saved properties collection</td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2 id="data-model">8. Data Model</h2>
+
+    <h3>Stay Object Structure</h3>
+    <pre>
+{
+  id: 1,
+  title: "Luxury Downtown Apartment",
+  location: "New York, NY",
+  price: 250,
+  rating: 4.9,
+  reviews: 128,
+  images: [
+    "https://example.com/image1.jpg",
+    "https://example.com/image2.jpg"
+  ],
+  bedrooms: 2,
+  bathrooms: 2,
+  maxGuests: 4,
+  propertyType: "Apartment",
+  description: "Full property description...",
+  host: {
+    name: "John Doe",
+    image: "https://example.com/host.jpg",
+    isSuperhost: true,
+    joinedYear: 2018
+  },
+  amenities: [
+    "WiFi", "Kitchen", "Air conditioning",
+    "Washer", "TV", "Parking"
+  ],
+  coordinates: {
+    lat: 40.7128,
+    lng: -74.0060
+  },
+  ratings: {
+    cleanliness: 4.9,
+    accuracy: 4.8,
+    communication: 5.0,
+    location: 4.9,
+    checkIn: 5.0,
+    value: 4.7
+  }
+}
+    </pre>
+
+    <h3>Booking Object Structure</h3>
+    <pre>
+{
+  id: "BK1702345678901",
+  stayId: 1,
+  stay: { /* Stay object */ },
+  checkIn: "2024-01-15",
+  checkOut: "2024-01-20",
+  guests: 2,
+  nights: 5,
+  subtotal: 1250,
+  serviceFee: 150,
+  cleaningFee: 45,
+  total: 1445,
+  guestInfo: {
+    firstName: "Jane",
+    lastName: "Doe",
+    email: "jane@example.com",
+    phone: "(555) 123-4567",
+    arrivalTime: "3:00 PM",
+    specialRequests: ""
+  },
+  status: "upcoming", // upcoming | active | completed | cancelled
+  bookedAt: "2024-01-10T12:00:00Z"
+}
+    </pre>
+
+    <h2 id="styling">9. Styling Architecture</h2>
+
+    <h3>CSS Methodology</h3>
+    <p>The project uses <strong>BEM (Block Element Modifier)</strong> naming convention for CSS classes.</p>
+
+    <pre>
+/* Block */
+.stay-card { }
+
+/* Element */
+.stay-card__image { }
+.stay-card__title { }
+.stay-card__price { }
+
+/* Modifier */
+.stay-card--featured { }
+.stay-card__price--discounted { }
+    </pre>
+
+    <h3>CSS Variables (Custom Properties)</h3>
+    <pre>
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --background: #f8fafc;
+  --border-color: #e2e8f0;
+  --success: #22c55e;
+  --error: #ef4444;
+  --warning: #f59e0b;
+}
+    </pre>
+
+    <h3>Responsive Breakpoints</h3>
+    <table>
+        <tr>
+            <th>Breakpoint</th>
+            <th>Target Devices</th>
+        </tr>
+        <tr>
+            <td><code>@media (max-width: 480px)</code></td>
+            <td>Mobile phones</td>
+        </tr>
+        <tr>
+            <td><code>@media (max-width: 768px)</code></td>
+            <td>Tablets (portrait)</td>
+        </tr>
+        <tr>
+            <td><code>@media (max-width: 1024px)</code></td>
+            <td>Tablets (landscape) / Small laptops</td>
+        </tr>
+        <tr>
+            <td><code>@media (min-width: 1200px)</code></td>
+            <td>Desktops</td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2 id="installation">10. Installation & Setup</h2>
+
+    <h3>Prerequisites</h3>
+    <ul>
+        <li>Node.js (v18 or higher recommended)</li>
+        <li>npm or yarn package manager</li>
+    </ul>
+
+    <h3>Installation Steps</h3>
+    <pre>
+# Clone the repository
+git clone https://github.com/Vikas85109/booking-portal-ui.git
+
+# Navigate to project directory
+cd booking-portal-ui
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+    </pre>
+
+    <div class="info-box">
+        The development server will start at <code>http://localhost:5173</code> by default.
+    </div>
+
+    <h2 id="scripts">11. Available Scripts</h2>
+
+    <table>
+        <tr>
+            <th>Command</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>npm run dev</code></td>
+            <td>Start development server with hot module replacement</td>
+        </tr>
+        <tr>
+            <td><code>npm run build</code></td>
+            <td>Build production-ready bundle to <code>/dist</code> folder</td>
+        </tr>
+        <tr>
+            <td><code>npm run preview</code></td>
+            <td>Preview production build locally</td>
+        </tr>
+        <tr>
+            <td><code>npm run lint</code></td>
+            <td>Run ESLint to check code quality</td>
+        </tr>
+    </table>
+
+    <h2 id="deployment">12. Deployment Guide</h2>
+
+    <h3>Build for Production</h3>
+    <pre>
+# Create production build
+npm run build
+
+# The output will be in the /dist folder
+    </pre>
+
+    <h3>Deployment Options</h3>
+
+    <div class="feature-card">
+        <h4>Vercel (Recommended)</h4>
+        <ol>
+            <li>Push your code to GitHub</li>
+            <li>Import the repository in Vercel</li>
+            <li>Vercel will auto-detect Vite and configure the build</li>
+            <li>Deploy with one click</li>
+        </ol>
+    </div>
+
+    <div class="feature-card">
+        <h4>Netlify</h4>
+        <ol>
+            <li>Connect your GitHub repository</li>
+            <li>Set build command: <code>npm run build</code></li>
+            <li>Set publish directory: <code>dist</code></li>
+            <li>Deploy</li>
+        </ol>
+    </div>
+
+    <div class="feature-card">
+        <h4>GitHub Pages</h4>
+        <ol>
+            <li>Update <code>vite.config.js</code> with base path</li>
+            <li>Build the project</li>
+            <li>Deploy the <code>/dist</code> folder to gh-pages branch</li>
+        </ol>
+    </div>
+
+    <div class="footer">
+        <p><strong>StayBooker</strong> - Accommodation Booking Portal</p>
+        <p>Version 1.0.0 | Built with React + Vite</p>
+        <p>Repository: <a href="https://github.com/Vikas85109/booking-portal-ui">github.com/Vikas85109/booking-portal-ui</a></p>
+        <p style="margin-top: 15px;">Documentation generated on December 2024</p>
+    </div>
+</body>
+</html>
